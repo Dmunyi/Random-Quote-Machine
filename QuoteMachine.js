@@ -1,49 +1,27 @@
-import React, { useState, useEffect } from 'react';
-
-function QuoteMachine() {
-  const [quote, setQuote] = useState('');
-  const [author, setAuthor] = useState('');
-  const [quotes, setQuotes] = useState([]);
-
-  useEffect(() => {
-    fetchQuotes();
-  }, []);
-
-  const fetchQuotes = async () => {
-    const response = await fetch('https://type.fit/api/quotes');
-    const data = await response.json();
-    setQuotes(data);
-    getRandomQuote();
-  };
-
-  const getRandomQuote = () => {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    const randomQuote = quotes[randomIndex];
-    setQuote(randomQuote.text);
-    setAuthor(randomQuote.author);
-  };
-
-  const handleNewQuote = () => {
-    getRandomQuote();
-  };
-
-  const handleTweetQuote = () => {
-    const tweetUrl = `https://twitter.com/intent/tweet?text="${quote}" - ${author}`;
-    window.open(tweetUrl, '_blank');
-  };
-
-  return (
-    <div id="quote-box" className="container">
-      <div id="text">{quote}</div>
-      <div id="author">- {author}</div>
-      <button id="new-quote" onClick={handleNewQuote}>
-        New Quote
-      </button>
-      <a id="tweet-quote" href="#" onClick={handleTweetQuote}>
-        Tweet Quote
-      </a>
-    </div>
-  );
-}
-
-export default QuoteMachine;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Quote Machine</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+  <style>
+    body {
+      background-color: #f0f0f0; /* changed background color to light gray */
+    }
+    #quote-box {
+      margin: 40px auto;
+      width: 80%;
+      text-align: center;
+      background-color: #87ceeb; /* changed quote box background color to sky blue */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="index.js"></script>
+</body>
+</html>
